@@ -1,5 +1,7 @@
 import {
   MessageBody,
+  OnGatewayConnection,
+  OnGatewayDisconnect,
   SubscribeMessage,
   WebSocketGateway,
   WebSocketServer,
@@ -14,7 +16,7 @@ import { Server } from 'socket.io';
     origin: '*',
   },
 })
-export class EventsGateway {
+export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer()
   server: Server;
 
@@ -29,5 +31,18 @@ export class EventsGateway {
   @SubscribeMessage('identity')
   async identity(@MessageBody() data: number): Promise<number> {
     return data;
+  }
+
+  @SubscribeMessage('logMessage')
+  logMessage(@MessageBody() data: any): void {
+    console.log('Mensagem recebida do cliente:', data);
+  }
+
+  handleConnection(client: any, ...args: any[]): void {
+    console.log('Um usuário foi conectado');
+  }
+
+  handleDisconnect(client: any): void {
+    console.log('Um usuário foi desconectado');
   }
 }
