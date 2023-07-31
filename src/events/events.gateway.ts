@@ -33,7 +33,7 @@ export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
     return data;
   }
 
-  @SubscribeMessage('logMessage')
+  @SubscribeMessage('clientMessage')
   logMessage(@MessageBody() data: any): void {
     console.log('Mensagem recebida do cliente:', data);
   }
