@@ -7,12 +7,12 @@
         console.log('Connected');
 
         socket.emit('events', { test: 'test' });
+        
         socket.emit('identity', 0, response =>
-          console.log('Identity:', response),
+          console.log('Retorno de identity:', response),
         );
-
-        socket.emit('clientMessage', { message: 'Esta é a mensagem para logMessage', timestamp: new Date() });
       });
+      
       socket.on('events', function(data) {
         console.log('event', data);
       });

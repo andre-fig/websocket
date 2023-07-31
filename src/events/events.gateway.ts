@@ -29,13 +29,8 @@ export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
   }
 
   @SubscribeMessage('identity')
-  async identity(@MessageBody() data: number): Promise<number> {
-    return data;
-  }
-
-  @SubscribeMessage('clientMessage')
-  logMessage(@MessageBody() data: any): void {
-    console.log('Mensagem recebida do cliente:', data);
+  async identity(@MessageBody() data: number): Promise<string> {
+    return `Mensagem recebida: ${data}`;
   }
 
   handleConnection(client: any, ...args: any[]): void {
